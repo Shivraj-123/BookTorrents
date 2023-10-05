@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Your Cart</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href={{url_for('static', filename='css/cart.css')}} />
+<link rel="stylesheet" href={{url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<div id="title">
+	<a href="/">
+	<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery" placeholder="Search">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+		<div id="signInButton">
+			<a class="link" href="/loginForm">Sign In</a>
+		</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/profile">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+		<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+		CART {{noOfItems}}
+		</a>
+	</div>
+</div>
+<div id="cartItems">
+	<h2>Cart</h2>
+	<div id="tableItems">
+		{% for row in products %}
+		<div>
+			<hr id="seperator">
+			<div id="itemImage">
+				<img src={{url_for('static', filename='uploads/images/'+row[3])}} id="image"/>
+			</div>
+			<div id="itemName">
+				<span id="itemNameTag">{{row[1]}}</span><br>
+				<br>
+				<a href="/removeFromCart?productId={{row[0]}}">Remove</a>
+			</div>
+			<div id="itemPrice">
+				${{row[2]}}
+			</div>
+		</div>
+		{% endfor %}
+		<hr id="seperator">
+		<div id="total">
+			<span id="subtotal">Subtotal</span> : ${{totalPrice}}
+		</div>
+	</div>
+</div>
+
+<a id="downloadLink" href="#" onclick="downloadAndRedirect()">Proceed to download</a>
+ <script>
+function downloadAndRedirect() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/download', true);
+    xhr.responseType = 'blob';
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var blob = xhr.response;
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'books.zip';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            window.location.href = '/checkout';
+        }
+    };
+    xhr.send();
+}
+    </script>
+
+</body>
+</html>
+

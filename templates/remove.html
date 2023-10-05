@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Remove</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href={{url_for('static', filename='css/remove.css')}}>
+
+</link>
+</head>
+<body>
+<table>
+	{% for i in range(6) %}
+	<tr>
+		{% for row in data %}
+		<td>
+			<a href="/removeItem?productId={{row[0]}}">
+			{% if i == 4 %}
+				<img src={{ url_for('static', filename='uploads/images/' + row[i]) }} id="itemImage" />
+			{% else %}
+				{{row[i]}}
+			{% endif %}
+			</a>
+		</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+</body>
+</html>
