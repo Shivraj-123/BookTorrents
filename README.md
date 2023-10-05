@@ -1,12 +1,6 @@
-# Shopping Cart  
-A simple E-commerce website using Flask.
-  
-## Dependencies ##
-1. Python3
-2. Flask
-3. Sqlite
+# Handwriting-Machine
+Book torrents is a digital library which aims to bring ease and accessibility to the world of books. The application is scripted in python, uses flask framework for web devlopment and SQL lite for database management.
 
-## How to run ##
-1. Set up database by running database.py
-2. Run main.py
-3. Enter localhost:5000 in the browser.
+<br>
+# Output
+![Output](https://github.com/Shivraj-123/BookTorrents/assets/110761368/50bf0376-5705-4510-86fb-ce7507a5613d)
